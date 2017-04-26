@@ -1,0 +1,74 @@
+/* RT Recent Products Widget. */
+.rt-recent-products-widget .list_item:not(:last-child) {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.rt-recent-products-widget .rt__list_products {
+	padding: 10px;
+	border: 1px solid #d4d4d4;
+}
+
+.rt-recent-products-widget .list_item .list_item-thumbnail {
+	padding: 3px;
+	border: 1px solid #d4d4d4;
+}
+
+.rt-recent-products-widget .list_item .list_item-details {
+	overflow: hidden;
+}
+
+.rt-recent-products-widget .list_item .list_item-details .list_item--title {
+	color: #333;
+	font-weight: bold;
+}
+
+.rt-recent-products-widget .list_item .list_item-details .list_item--price {
+    color: #d20909;
+    font-weight: bold;
+}
+
+/* RT Recent Posts Widget. */
+.rt-recent-posts-widget .rt__list_posts {
+	background: #f9f9f9;
+	border: 1px solid #ececec;
+	border-radius: 5px;
+}
+
+.rt-recent-posts-widget .list_item-details {
+	overflow: hidden;
+}
+
+.rt-recent-posts-widget .list_item-thumbnail a {
+    display: block;
+    border: 1px solid #ececec;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.rt-recent-posts-widget .list_item {
+    padding: 10px;
+}
+
+.rt-recent-posts-widget .list_item:not(:last-child) {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e1e1e1;
+}
+
+/* RT Products by Category Widget. */
+.product_item {
+    position: relative;
+     border: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.rt__grid_products {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.rt__grid_products .product {
+  margin-bottom: 20px;
+}

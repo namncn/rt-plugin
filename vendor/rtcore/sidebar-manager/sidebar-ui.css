@@ -1,0 +1,49 @@
+#TB_ajaxContent {
+  height: auto !important;
+}
+#TB_ajaxContent p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.abc {
+  text-align: right;
+  padding: 10px 8px;
+  border-top: solid 1px #eee;
+}
+
+.rt-create-sidebar label {
+  font-weight: 700;
+}
+
+.rt-create-sidebar textarea,
+.rt-create-sidebar input[type="text"] {
+  width: 100%;
+  display: block;
+}
+
+.rt-create-sidebar textarea {
+  min-height: 65px;
+}
+
+.rt-sidebar-actions {
+  margin: 15px -15px -15px;
+  padding: 10px 15px;
+
+  border-top: solid 1px #dfdfdf;
+  text-align: right;
+}
+
+.abc.submitbox .submitdelete {
+  float: left;
+  margin-top: 5px;
+}
+
+.removing .spinner {
+  visibility: visible;
+}
+
+.carbon-btn-remove-sidebar {
+  opacity: 0;
+  visibility: hidden;
+}
