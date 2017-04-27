@@ -1,7 +1,7 @@
 <?php
 /**
  * Abstract Widget Class.
- * 
+ *
  * @author NamNCN
  * @category Widgets
  * @package RTCORE/Abstract
@@ -12,35 +12,35 @@ abstract class RT_Widget extends WP_Widget {
 
 	/**
 	 * CSS class.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $widget_cssclass;
 
 	/**
 	 * Widget description.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $widget_description;
 
 	/**
 	 * Widget ID.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $widget_id;
 
 	/**
 	 * Widget name.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $widget_name;
 
 	/**
 	 * Settings
-	 * 
+	 *
 	 * @var array
 	 */
 	public $settings;
@@ -64,7 +64,7 @@ abstract class RT_Widget extends WP_Widget {
 
 	/**
 	 * Get cached widget.
-	 * 
+	 *
 	 * @param array $args
 	 * @return bool true if the widget is cached otherwise false.
 	 */
@@ -86,7 +86,7 @@ abstract class RT_Widget extends WP_Widget {
 
 	/**
 	 * Cache the widget.
-	 * 
+	 *
 	 * @param array $args
 	 * @param string $content
 	 * @return string the content that was cached
@@ -106,7 +106,7 @@ abstract class RT_Widget extends WP_Widget {
 
 	/**
 	 * Output the html at the start of a widget.
-	 * 
+	 *
 	 * @param array $args
 	 * @return string
 	 */
@@ -115,8 +115,8 @@ abstract class RT_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Output the html at the end of a widget. 
-	 * 
+	 * Output the html at the end of a widget.
+	 *
 	 * @param array $args
 	 * @return string
 	 */
@@ -164,6 +164,12 @@ abstract class RT_Widget extends WP_Widget {
 				break;
 				case 'checkbox' :
 					$instance[ $key ] = empty( $new_instance[ $key ] ) ? 0 : 1;
+				break;
+				case 'upload' :
+					$instance[ $key ] = empty( $new_instance[ $key ] ) ? 0 : esc_url_raw( $new_instance[ $key ] );
+				break;
+				case 'image' :
+					$instance[ $key ] = empty( $new_instance[ $key ] ) ? 0 : absint( $new_instance[ $key ] );
 				break;
 				default:
 					$instance[ $key ] = sanitize_text_field( $new_instance[ $key ] );
@@ -287,6 +293,67 @@ abstract class RT_Widget extends WP_Widget {
 							<small><?php echo esc_html( $setting['desc'] ); ?></small>
 						<?php endif; ?>
 					</p>
+					<?php
+				break;
+
+				case 'upload' :
+					?>
+					<p>
+						<label for="<?php echo $this->get_field_id( $key ); ?>"><?php echo $setting['label']; ?></label>
+						<label class="rt-element cs-field-upload">
+						<input class="widefat <?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo $this->get_field_name( $key ); ?>" type="text" value="<?php echo esc_attr( $value ); ?>" data-depend-id="<?php echo $this->get_field_id( $key ); ?>"/>
+						<a href="#" class="button cs-add" data-frame-title="Upload" data-upload-type="image" data-insert-title="Use Image">Upload</a>
+						</label>
+						<?php if ( isset( $setting['desc'] ) ) : ?>
+							<small><?php echo esc_html( $setting['desc'] ); ?></small>
+						<?php endif; ?>
+					</p>
+					<?php
+				break;
+
+				case 'image' :
+					?>
+					<div style="margin: 1em 0;">
+						<label for="<?php echo $this->get_field_id( $key ); ?>"><?php echo $setting['label']; ?></label>
+						<div class="rt-element cs-field-image">
+							<input class="widefat <?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo $this->get_field_name( $key ); ?>" type="text" value="<?php echo esc_attr( $value ); ?>" data-depend-id="<?php echo $this->get_field_id( $key ); ?>"/>
+							<div class="cs-image-preview<?php echo empty( $value ) ? ' hidden' : ''; ?>">
+								<div class="cs-preview">
+									<i class="fa fa-times cs-remove"></i>
+									<img src="<?php echo esc_attr( wp_get_attachment_url( $value ) ); ?>" alt="preview" />
+								</div>
+							</div>
+							<a href="#" class="button button-primary cs-add"><?php esc_html_e( 'Thêm hình ảnh', 'raothue' ); ?></a>
+						</div><!-- .rt-element -->
+						<?php if ( isset( $setting['desc'] ) ) : ?>
+							<small><?php echo esc_html( $setting['desc'] ); ?></small>
+						<?php endif; ?>
+					</div>
+					<?php
+				break;
+
+				case 'gallery' :
+					?>
+					<div style="margin: 1em 0;">
+						<label for="<?php echo $this->get_field_id( $key ); ?>"><?php echo $setting['label']; ?></label>
+						<div class="rt-element cs-field-gallery">
+							<input class="widefat <?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo $this->get_field_name( $key ); ?>" type="text" value="<?php echo esc_attr( $value ); ?>" data-depend-id="<?php echo $this->get_field_id( $key ); ?>"/>
+							<ul>
+							<?php
+								$value = explode( ',', $value);
+								foreach ( $value as $id ) :
+							?>
+							<li><img src="<?php echo esc_attr( wp_get_attachment_url( $id ) ); ?>" alt="preview"></li>
+							<?php endforeach; ?>
+							</ul>
+							<a href="#" class="button button-primary cs-add"><?php esc_html_e( 'Thêm Gallery', 'raothue' ); ?></a>
+							<a href="#" class="button cs-edit"><?php esc_html_e( 'Chỉnh sửa Gallery', 'raothue' ); ?></a>
+							<a href="#" class="button cs-warning-primary cs-remove"><?php esc_html_e( 'Xóa', 'raothue' ); ?></a>
+						</div><!-- .rt-element -->
+						<?php if ( isset( $setting['desc'] ) ) : ?>
+							<small><?php echo esc_html( $setting['desc'] ); ?></small>
+						<?php endif; ?>
+					</div>
 					<?php
 				break;
 

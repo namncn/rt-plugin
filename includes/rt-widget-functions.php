@@ -23,10 +23,16 @@ function rt_register_widgets() {
 	register_widget( 'RT_Facebook_Comment_Widget' );
 	register_widget( 'RT_Recent_Posts_Widget' );
 	register_widget( 'RT_Post_By_Category_Widget' );
+	register_widget( 'RT_Post_By_Category_2_Widget' );
 	register_widget( 'RT_Popular_Posts_Widget' );
 	register_widget( 'RT_Related_Posts_Widget' );
 	register_widget( 'RT_Posts_Slider_Widget' );
-	register_widget( 'RT_Textarea_Widget' );
+
+	if ( function_exists( 'rtfw' ) ) {
+		register_widget( 'RT_Support_Widget' );
+		register_widget( 'RT_Textarea_Widget' );
+		register_widget( 'RT_Video_Widget' );
+	}
 
 	if ( class_exists( 'MetaSliderPlugin' ) ) {
 		unregister_widget( 'MetaSlider_Widget' );

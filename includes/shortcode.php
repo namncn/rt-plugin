@@ -106,3 +106,4 @@ function rt_series_shortcode( $atts ) {
 	return $html;
 }
 add_shortcode( 'series', 'rt_series_shortcode' );
+

@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * RT Textarea Posts Widget.
+ * RT Textarea Widget.
  *
- * Show textarea posts.
+ * Show textarea.
  *
  * @author   NamNCN
  * @category Widgets
