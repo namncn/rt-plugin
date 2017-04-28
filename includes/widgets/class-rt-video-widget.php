@@ -85,7 +85,9 @@ class RT_Video_Widget extends RT_Widget {
 		<div class="rt__video">
 			<a href="<?php echo esc_url( $instance['link'] ); ?>">
 				<?php if ( $instance['icon'] ) : ?>
-				<i class="<?php echo esc_attr( $instance['icon'] ); ?>"></i>
+				<div class="rt__video--overlay">
+					<i class="<?php echo esc_attr( $instance['icon'] ); ?>"></i>
+				</div>
 				<?php endif; ?>
 
 				<?php echo wp_get_attachment_image( $instance['image'], 'full' ); ?>
