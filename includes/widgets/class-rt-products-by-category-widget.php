@@ -102,7 +102,7 @@ class RT_Products_By_Category_Widget extends RT_Widget {
 
 			<?php while ( $post_query->have_posts() ) : $post_query->the_post(); ?>
 
-				<?php wc_get_template_part( 'content', 'product' ); ?>
+				<?php wc_get_template_part( 'content-product', 'tooltip' ); ?>
 
 			<?php endwhile; ?>
 
