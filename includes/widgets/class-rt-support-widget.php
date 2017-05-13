@@ -71,6 +71,16 @@ class RT_Support_Widget extends RT_Widget {
 				'std'    => 'abc@yourdomain.com',
 				'label'  => esc_html__( 'Nội dung dòng 6:', 'raothue' ),
 			),
+			'line7' => array(
+				'type'   => 'text',
+				'std'    => '',
+				'label'  => esc_html__( 'Nội dung dòng 7:', 'raothue' ),
+			),
+			'line8' => array(
+				'type'   => 'text',
+				'std'    => '',
+				'label'  => esc_html__( 'Nội dung dòng 8:', 'raothue' ),
+			),
 		);
 
 		parent::__construct();
@@ -94,6 +104,8 @@ class RT_Support_Widget extends RT_Widget {
 			'line4' => esc_html__( 'Tư vấn dịch vụ', 'raothue' ),
 			'line5' => '0986 334 556',
 			'line6' => 'abc@yourdomain.com',
+			'line7' => '',
+			'line8' => '',
 		);
 
 		$instance = wp_parse_args( $instance, $defaults );
@@ -114,20 +126,43 @@ class RT_Support_Widget extends RT_Widget {
 			</div>
 			<?php endif; ?>
 
-			<?php
-			unset( $instance['title'] );
-			unset( $instance['image'] );
+			<?php if ( $instance ) : ?>
 
-			if ( $instance ) : ?>
+			<div class="rt__support_bottom">
 
-				<div class="rt__support_bottom">
+			<?php if ( $instance['line1'] ) : ?>
+				<div class="line1"><?php echo esc_html( $instance['line1'] ); ?></div>
+			<?php endif; ?>
 
-				<?php $i = 0;
-				foreach ($instance as $key => $value) : ?>
-					<div class="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $value ); ?></div>
-				<?php endforeach; ?>
+			<?php if ( $instance['line2'] ) : ?>
+				<a class="line2" href="tel:<?php echo esc_attr( $instance['line2'] ) ;?>"><?php echo esc_html( $instance['line2'] ); ?></a>
+			<?php endif; ?>
 
-				</div>
+			<?php if ( $instance['line3'] ) : ?>
+				<a class="line3" href="mailto:<?php echo esc_attr( $instance['line3'] ) ;?>"><?php echo esc_html( $instance['line3'] ); ?></a>
+			<?php endif; ?>
+
+			<?php if ( $instance['line4'] ) : ?>
+				<div class="line4"><?php echo esc_html( $instance['line4'] ); ?></div>
+			<?php endif; ?>
+
+			<?php if ( $instance['line5'] ) : ?>
+				<a class="line5" href="tel:<?php echo esc_attr( $instance['line5'] ) ;?>"><?php echo esc_html( $instance['line5'] ); ?></a>
+			<?php endif; ?>
+
+			<?php if ( $instance['line6'] ) : ?>
+				<a class="line6" href="mailto:<?php echo esc_attr( $instance['line6'] ) ;?>"><?php echo esc_html( $instance['line6'] ); ?></a>
+			<?php endif; ?>
+
+			<?php if ( $instance['line7'] ) : ?>
+				<div class="line7"><?php echo esc_html( $instance['line7'] ); ?></div>
+			<?php endif; ?>
+
+			<?php if ( $instance['line8'] ) : ?>
+				<div class="line8"><?php echo esc_html( $instance['line8'] ); ?></div>
+			<?php endif; ?>
+
+			</div>
 
 			<?php endif; ?>
 
