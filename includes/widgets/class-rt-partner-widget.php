@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * RT Partner Slider Widget.
+ * RT Partner Widget.
  *
- * Show partner slider.
+ * Show partner.
  *
  * @author   NamNCN
  * @category Widgets
@@ -20,15 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @version  1.0.0
  * @extends  RT_Widget
  */
-class RT_Partner_Slider_Widget extends RT_Widget {
+class RT_Partner_Widget extends RT_Widget {
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'rt-partner-slider-widget';
-		$this->widget_description = esc_html__( "Hiển thị bài viết liên quan.", 'raothue' );
-		$this->widget_id          = 'rt-partner-slider-widget';
+		$this->widget_cssclass    = 'rt-partner-widget';
+		$this->widget_description = esc_html__( "Hiển thị logo các đối tác.", 'raothue' );
+		$this->widget_id          = 'rt-partner-widget';
 		$this->widget_name        = esc_html__( 'RT: Đối tác', 'raothue' );
 		$this->settings           = array(
 			'title'  => array(
@@ -44,7 +44,8 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 			),
 			'items' => array(
 				'type'  => 'number',
-				'std'   => 4,
+				'step' => 1,
+				'std'   => 5,
 				'min'   => 1,
 				'max'   => 15,
 				'label' => esc_html__( 'Chọn số cột muốn hiển thị', 'raothue' ),
@@ -65,6 +66,7 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 			),
 			'scroll' => array(
 				'type'  => 'number',
+				'step' => 1,
 				'std'   => 3,
 				'min'   => 1,
 				'max'   => 5,
@@ -72,6 +74,7 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 			),
 			'speed' => array(
 				'type'  => 'number',
+				'step' => 1,
 				'std'   => 5000,
 				'min'   => 1000,
 				'max'   => 50000,
@@ -79,6 +82,7 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 			),
 			'autoplaySpeed' => array(
 				'type'  => 'number',
+				'step' => 1,
 				'std'   => 5000,
 				'min'   => 1000,
 				'max'   => 50000,
@@ -112,7 +116,7 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 		$defaults = array(
 			'number'          => 6,
 			'slider'          => 1,
-			'items'           => 3,
+			'items'           => 5,
 			'style'           => 'horizontal',
 			'scroll'          => 3,
 			'speed'           => 5000,
@@ -145,7 +149,10 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 
 			<div class="rt__partner_sliders-<?php echo $rand; ?>">
 
-			<?php while ( $post_query->have_posts() ) : $post_query->the_post(); ?>
+			<?php while ( $post_query->have_posts() ) : $post_query->the_post();
+				$link = '';
+				$link = get_post_meta( get_the_ID(), 'partner', true )['link'];
+			?>
 
 				<div class="slider_item">
 
@@ -153,7 +160,7 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 
 					<div class="slider_item-thumbnail">
 
-						<a href="<?php the_permalink(); ?>">
+						<a href="<?php echo esc_url( $link ); ?>">
 							<?php the_post_thumbnail( 'medium' ); ?>
 						</a>
 
@@ -167,10 +174,12 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 
 			</div><!-- .rt__partner_sliders -->
 
+			<?php if ( $instance['slider'] ) : ?>
+
 			<script type="text/javascript">
 				jQuery(document).ready(function($) {
 					"use strict";
-					$('.rt__posts_sliders-<?php echo $rand; ?>').slick({
+					$('.rt__partner_sliders-<?php echo $rand; ?>').slick({
 						speed: <?php echo $instance['speed']; ?>,
 						vertical: <?php echo 'vertical' == $instance['style'] ? 'true' : 'false'; ?>,
 						slidesToShow: <?php echo absint( $instance['items'] ); ?>,
@@ -202,6 +211,8 @@ class RT_Partner_Slider_Widget extends RT_Widget {
 					});
 				});
 			</script>
+
+			<?php endif; ?>
 
 			<?php wp_reset_postdata();
 

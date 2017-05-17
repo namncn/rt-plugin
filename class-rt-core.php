@@ -40,7 +40,6 @@ final class RT_CORE {
 	private function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'init', array( $this, 'rtcore_load_plugin_textdomain' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'rtcore_admin_enqueue_script' ) );
 	}
 
 	/**
@@ -55,6 +54,7 @@ final class RT_CORE {
 		require_once RT_CORE_PATH . 'includes/rt-widget-functions.php';
 		require_once RT_CORE_PATH . 'includes/shortcode.php';
 		require_once RT_CORE_PATH . 'includes/posttype.php';
+		require_once RT_CORE_PATH . 'includes/metabox.php';
 
 		do_action( 'rtcore_init' );
 	}
@@ -80,13 +80,5 @@ final class RT_CORE {
 		wp_enqueue_style( 'rtcore-main', RT_CORE_URL . 'assets/css/main.css', array(), '1.0.0' );
 		wp_enqueue_script( 'slick',  RT_CORE_URL . 'assets/js/slick.min.js', array( 'jquery' ), '1.6.0', true );
 		wp_enqueue_script( 'rtcore-main', RT_CORE_URL . 'assets/js/main.js', array( 'jquery' ), '1.0.0', true );
-	}
-
-	/**
-	 * Admin enqueue scripts.
-	 */
-	function rtcore_admin_enqueue_script() {
-		wp_enqueue_media();
-		wp_enqueue_script( 'ncnteam-image-uploader', RT_CORE_URL . 'assets/js/image-uploader.js', array( 'jquery' ), '1.0.0', true );
 	}
 }

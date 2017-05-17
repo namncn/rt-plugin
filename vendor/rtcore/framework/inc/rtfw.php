@@ -75,7 +75,7 @@ class RTFW extends RTFW_Container {
 		defined( 'CS_ACTIVE_FRAMEWORK' ) or define( 'CS_ACTIVE_FRAMEWORK', false );
 		defined( 'CS_ACTIVE_METABOX' ) or define( 'CS_ACTIVE_METABOX', true );
 		defined( 'CS_ACTIVE_TAXONOMY'   ) or  define( 'CS_ACTIVE_TAXONOMY',   true );
-		defined( 'CS_ACTIVE_SHORTCODE' ) or define( 'CS_ACTIVE_SHORTCODE', true );
+		defined( 'CS_ACTIVE_SHORTCODE' ) or define( 'CS_ACTIVE_SHORTCODE', false );
 		defined( 'CS_ACTIVE_CUSTOMIZE' ) or define( 'CS_ACTIVE_CUSTOMIZE', false );
 
 		$this['cs_url'] = CS_URI;
