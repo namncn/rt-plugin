@@ -32,6 +32,7 @@ function rt_register_widgets() {
 		register_widget( 'RT_Support_Widget' );
 		register_widget( 'RT_Textarea_Widget' );
 		register_widget( 'RT_Video_Widget' );
+		register_widget( 'RT_Image_Widget' );
 	}
 
 	if ( class_exists( 'MetaSliderPlugin' ) ) {

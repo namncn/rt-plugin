@@ -1,13 +1,18 @@
 <?php
+/**
+ * Widget class.
+ *
+ * @package Raothue
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * RT products By Category Widget.
+ * RT Partner Slider Widget.
  *
- * Show products by category.
+ * Show partner slider.
  *
  * @author   NamNCN
  * @category Widgets
@@ -15,60 +20,65 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @version  1.0.0
  * @extends  RT_Widget
  */
-class RT_Best_Seller_Products_Widget extends RT_Widget {
+class RT_Partner_Slider_Widget extends RT_Widget {
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'rt_best_seller_products_widget woocommerce';
-		$this->widget_description = esc_html__( "Hiển thị sản phẩm bán chạy.", 'raothue' );
-		$this->widget_id          = 'rt_best_seller_products_widget';
-		$this->widget_name        = esc_html__( 'RT: Sản phẩm bán chạy', 'raothue' );
+		$this->widget_cssclass    = 'rt-partner-slider-widget';
+		$this->widget_description = esc_html__( "Hiển thị bài viết liên quan.", 'raothue' );
+		$this->widget_id          = 'rt-partner-slider-widget';
+		$this->widget_name        = esc_html__( 'RT: Đối tác', 'raothue' );
 		$this->settings           = array(
 			'title'  => array(
 				'type'  => 'text',
-				'label' => esc_html__( 'Tiêu đề', 'raothue' ),
-				'std'   => esc_html__( 'Sản phẩm bán chạy', 'raothue' ),
+				'std'   => esc_html__( 'Đối tác', 'raothue' ),
+				'label' => esc_html__( 'Tiêu đề:', 'raothue' ),
 			),
 			'number' => array(
 				'type'   => 'text',
-				'std'    => 5,
-				'label'  => esc_html__( 'Số sản phẩm muốn hiển thị:', 'raothue' ),
-				'desc'   => esc_html__( 'Điền -1 để hiển thị tất cả sản phẩm', 'raothue' ),
-			),
-			'on_off_slider' => array(
-				'type'  => 'checkbox',
-				'std'   => false,
-				'label' => esc_html__( 'Bật/tắt chế độ cuộn', 'raothue' ),
+				'std'    => 6,
+				'label'  => esc_html__( 'Số đối tác muốn hiển thị:', 'raothue' ),
+				'desc'   => esc_html__( 'Điền "-1" để hiển thị tất cả', 'raothue' ),
 			),
 			'items' => array(
 				'type'  => 'number',
-				'step' => 1,
 				'std'   => 4,
 				'min'   => 1,
 				'max'   => 15,
-				'label' => esc_html__( 'Hiển thị bao nhiêu slide trong 1 lần?', 'raothue' ),
+				'label' => esc_html__( 'Chọn số cột muốn hiển thị', 'raothue' ),
+			),
+			'slider' => array(
+				'type'  => 'checkbox',
+				'std'   => true,
+				'label' => esc_html__( 'Bật/Tắt chế độ cuộn?', 'raothue' ),
+			),
+			'style' => array(
+				'type'  => 'select',
+				'std'   => 'horizontal',
+				'options' => array(
+					'vertical'    => esc_html__( 'Cuộn dọc' ),
+					'horizontal'  => esc_html__( 'Cuộn ngang' ),
+				),
+				'label' => esc_html__( 'Chọn số cột muốn hiển thị', 'raothue' ),
 			),
 			'scroll' => array(
 				'type'  => 'number',
-				'step' => 1,
-				'std'   => 1,
+				'std'   => 3,
 				'min'   => 1,
 				'max'   => 5,
 				'label' => esc_html__( 'Chọn số slide một lần cuộn', 'raothue' ),
 			),
 			'speed' => array(
 				'type'  => 'number',
-				'step' => 1,
 				'std'   => 5000,
 				'min'   => 1000,
-				'max'   => 15000,
+				'max'   => 50000,
 				'label' => esc_html__( 'Chọn tốc độ cuộn', 'raothue' ),
 			),
 			'autoplaySpeed' => array(
 				'type'  => 'number',
-				'step' => 1,
 				'std'   => 5000,
 				'min'   => 1000,
 				'max'   => 50000,
@@ -82,7 +92,7 @@ class RT_Best_Seller_Products_Widget extends RT_Widget {
 			'arrows' => array(
 				'type'  => 'checkbox',
 				'label' => esc_html__( 'Bật/tắt Mũi tên điều hướng', 'raothue' ),
-				'std'   => false,
+				'std'   => true,
 			),
 		);
 
@@ -99,26 +109,24 @@ class RT_Best_Seller_Products_Widget extends RT_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		// extract( $instance ); Don't extract variable $args, $instance cuz its not work when selective refresh.
 		$defaults = array(
-			'number'        => 5,
-			'on_off_slider' => false,
-			'items'         => 3,
-			'scroll'        => 1,
-			'speed'         => 5000,
-			'autoplaySpeed' => 5000,
-			'autoplay'      => true,
-			'arrows'        => false,
+			'number'          => 6,
+			'slider'          => 1,
+			'items'           => 3,
+			'style'           => 'horizontal',
+			'scroll'          => 3,
+			'speed'           => 5000,
+			'autoplaySpeed'   => 5000,
+			'autoplay'        => true,
+			'arrows'          => true,
 		);
 
 		$instance = wp_parse_args( $instance, $defaults );
 
 		$post_args = array(
-			'post_type'           => 'product',
+			'post_type'           =>'partner',
 			'posts_per_page'      => $instance['number'],
-			'ignore_sticky_posts' => true,
-			'meta_key'            => 'total_sales',
-			'orderby'             => 'meta_value_num',
+			'ignore_sticky_posts' => 1,
 		);
 
 		$post_query = new WP_Query( $post_args );
@@ -135,27 +143,39 @@ class RT_Best_Seller_Products_Widget extends RT_Widget {
 
 		if ( $post_query->have_posts() ) : ?>
 
-			<ul id="rt__best_seller_products-<?php echo $rand; ?>" class="rt__best_seller_products products row">
+			<div class="rt__partner_sliders-<?php echo $rand; ?>">
 
 			<?php while ( $post_query->have_posts() ) : $post_query->the_post(); ?>
 
-				<?php wc_get_template_part( 'content', 'product' ); ?>
+				<div class="slider_item">
+
+					<?php if ( has_post_thumbnail() ) : ?>
+
+					<div class="slider_item-thumbnail">
+
+						<a href="<?php the_permalink(); ?>">
+							<?php the_post_thumbnail( 'medium' ); ?>
+						</a>
+
+					</div><!-- .slider_item-thumbnail -->
+
+					<?php endif; ?>
+
+				</div><!-- .slider_item -->
 
 			<?php endwhile; ?>
 
-			</ul><!-- .list__items -->
-
-			<?php if ( $instance['on_off_slider'] ) : ?>
+			</div><!-- .rt__partner_sliders -->
 
 			<script type="text/javascript">
 				jQuery(document).ready(function($) {
 					"use strict";
-					$('#rt__best_seller_products-<?php echo $rand; ?>').slick({
+					$('.rt__posts_sliders-<?php echo $rand; ?>').slick({
 						speed: <?php echo $instance['speed']; ?>,
-						vertical: true,
+						vertical: <?php echo 'vertical' == $instance['style'] ? 'true' : 'false'; ?>,
 						slidesToShow: <?php echo absint( $instance['items'] ); ?>,
 						slidesToScroll: <?php echo absint( $instance['scroll'] ); ?>,
-						verticalSwiping: true,
+						verticalSwiping: <?php echo 'vertical' == $instance['style'] ? 'true' : 'false'; ?>,
 						autoplay: <?php echo $instance['autoplay']; ?>,
 						autoplaySpeed: <?php echo $instance['autoplaySpeed']; ?>,
 						arrows: <?php echo true == $instance['arrows'] ? 'true' : 'false'; ?>,
@@ -183,9 +203,8 @@ class RT_Best_Seller_Products_Widget extends RT_Widget {
 				});
 			</script>
 
-			<?php endif; ?>
-
 			<?php wp_reset_postdata();
+
 		endif;
 
 		$this->widget_end( $args );

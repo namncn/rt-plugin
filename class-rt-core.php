@@ -54,6 +54,7 @@ final class RT_CORE {
 		require_once RT_CORE_PATH . 'includes/class-rt-autoloader.php';
 		require_once RT_CORE_PATH . 'includes/rt-widget-functions.php';
 		require_once RT_CORE_PATH . 'includes/shortcode.php';
+		require_once RT_CORE_PATH . 'includes/posttype.php';
 
 		do_action( 'rtcore_init' );
 	}

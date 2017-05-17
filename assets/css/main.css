@@ -72,3 +72,26 @@
 .rt__grid_products .product {
   margin-bottom: 20px;
 }
+
+/* RT Video */
+.rt__video {
+    position: relative;
+}
+
+.rt__video--overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.rt__video--overlay .fa {
+    font-size: 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}

@@ -5,7 +5,7 @@
 
     // Initialize the slider.
     $('.rt-woocommerce-product-gallery-nav').Thumbelina({
-    	orientation:'vertical',
+    	orientation: rtcore_main.thumbelina,
     	maxSpeed: 88,
         $bwdBut:$('.rt-woocommerce-product-gallery-nav .left'),
         $fwdBut:$('.rt-woocommerce-product-gallery-nav .right')

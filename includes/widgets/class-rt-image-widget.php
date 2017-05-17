@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * RT Video Widget.
+ * RT Image Widget.
  *
- * Show video.
+ * Show image.
  *
  * @author   NamNCN
  * @category Widgets
@@ -20,36 +20,31 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @version  1.0.0
  * @extends  RT_Widget
  */
-class RT_Video_Widget extends RT_Widget {
+class RT_Image_Widget extends RT_Widget {
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'rt-video-widget';
-		$this->widget_description = esc_html__( "Hiển thị video.", 'raothue' );
-		$this->widget_id          = 'rt-video-widget';
-		$this->widget_name        = esc_html__( 'RT: Video', 'raothue' );
+		$this->widget_cssclass    = 'rt-image-widget';
+		$this->widget_description = esc_html__( "Hiển thị hình ảnh.", 'raothue' );
+		$this->widget_id          = 'rt-image-widget';
+		$this->widget_name        = esc_html__( 'RT: Hình ảnh', 'raothue' );
 		$this->settings           = array(
 			'title'  => array(
 				'type'  => 'text',
-				'std'   => esc_html__( 'Video', 'raothue' ),
+				'std'   => esc_html__( 'Hình ảnh', 'raothue' ),
 				'label' => esc_html__( 'Tiêu đề:', 'raothue' ),
 			),
 			'image' => array(
 				'type'   => 'image',
 				'std'    => '',
-				'label'  => esc_html__( 'Hình ảnh video:', 'raothue' ),
-			),
-			'icon' => array(
-				'type'  => 'text',
-				'std'   => 'fa fa-play-circle-o',
-				'label' => esc_html__( 'FontAwesome Icon:', 'raothue' ),
+				'label'  => esc_html__( 'Hình ảnh:', 'raothue' ),
 			),
 			'link' => array(
 				'type'   => 'text',
-				'std'    => 'https://www.youtube.com/watch?v=moUqHH9O5Fs',
-				'label'  => esc_html__( 'Link dẫn đến video:', 'raothue' ),
+				'std'    => '#',
+				'label'  => esc_html__( 'Link dẫn đến trang đích:', 'raothue' ),
 			),
 		);
 
@@ -67,9 +62,8 @@ class RT_Video_Widget extends RT_Widget {
 	public function widget( $args, $instance ) {
 
 		$defaults = array(
-			'image' => '',
-			'icon'  => 'play-circle-o',
-			'link'  => 'https://www.youtube.com/watch?v=moUqHH9O5Fs',
+			'image'  => '',
+			'link'  => '#',
 		);
 
 		$instance = wp_parse_args( $instance, $defaults );
@@ -82,14 +76,8 @@ class RT_Video_Widget extends RT_Widget {
 
 		if ( $instance['image'] ) : ?>
 
-		<div class="rt__video">
+		<div class="rt__image">
 			<a href="<?php echo esc_url( $instance['link'] ); ?>" target="_blank">
-				<?php if ( $instance['icon'] ) : ?>
-				<div class="rt__video--overlay">
-					<i class="<?php echo esc_attr( $instance['icon'] ); ?>"></i>
-				</div>
-				<?php endif; ?>
-
 				<?php echo wp_get_attachment_image( $instance['image'], 'full' ); ?>
 			</a>
 		</div>
